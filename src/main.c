@@ -5,10 +5,7 @@
 #include <strings.h>
 
 int main(int argc, char *argv[]) {
-  int args_check = checkArgs(argc);
-  if (args_check != EXIT_SUCCESS) {
-    return args_check;
-  }
+  checkArgs(argc);
 
   struct Args args = parseArgs(argc, argv);
   if (args.target == NULL || args.replace == NULL) {
