@@ -1,5 +1,6 @@
 #include "args.c"
 #include "errors.c"
+#include "files.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
@@ -12,10 +13,6 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  //
-  // TODO: parse Z properly to generate final list of files.
-  //
-
   printf("X: %s\n", args.target);
   printf("Y: %s\n", args.replace);
   if (args.paths == NULL) {
@@ -23,7 +20,14 @@ int main(int argc, char *argv[]) {
   } else {
     printf("Z:\n");
     for (int i = 0; i < args.pathsLen; i++) {
-      printf(" - %d: %s \n", i, args.paths[i]);
+      printf("  - %d: %s \n", i, args.paths[i]);
+      struct FilePathRule fpr = generateFilePathRule(args.paths[i]);
+      printf("\t- target: %s\n", fpr.path);
+      if (fpr.prefix == NULL) {
+        printf("\t- prefix: null\n");
+      } else {
+        printf("\t- prefix: %s\n", fpr.prefix);
+      }
     }
   }
 
