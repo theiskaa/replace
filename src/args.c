@@ -1,14 +1,7 @@
+#include "args.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// A struct level representation of command-line arguments.
-struct Args {
-  char *target;  // X
-  char *replace; // Y
-  char **paths;  // Z
-  int pathsLen;
-};
 
 // Parse command-line arguments and store them in a struct Args.
 struct Args parseArgs(int argc, char *argv[]) {
