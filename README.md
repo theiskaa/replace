@@ -1,4 +1,4 @@
-# rp
+# replace
 
 The replace/rp is a versatile tool that enables you to perform efficient replacement operations within specified files. This tool facilitates the seamless update of content across multiple files simultaneously. Whether you need to correct a typo, update a key term, or make any other content changes.
 
@@ -13,7 +13,7 @@ The replace/rp is a versatile tool that enables you to perform efficient replace
 Suppose you have a collection of Markdown files where the word "color" is used, but you want to standardize it as "colour." You can achieve this using the replace as follows:
 
 ```shell
-rp "color" "colour" folder_name/*.md
+rp "color" "colour" "folder_name/*.md"
 ```
 
 In this example:
