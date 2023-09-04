@@ -25,4 +25,6 @@ struct FilePathRule {
 
 struct FilePathRule generateFilePathRule(char *path);
 
+struct FilePathRule *generateFilePathRules(int pathsLen, char **path);
+
 #endif
