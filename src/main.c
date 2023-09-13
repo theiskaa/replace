@@ -2,6 +2,7 @@
 #include "errors.c"
 #include "files.c"
 #include "files.h"
+#include "replace.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
@@ -52,14 +53,16 @@ int main(int argc, char *argv[]) {
   printf(">>> Generating Full Paths <<<\n");
   printf("-----------------------------\n");
 
-  char **fullPaths = generateFullPaths(rules, len);
-  for (int i = 0; fullPaths[i] != NULL; i++) {
-    printf("%s\n", fullPaths[i]);
-    free(fullPaths[i]);
+  char **paths = generateFullPaths(rules, len);
+  for (int i = 0; paths[i] != NULL; i++) {
+    printf("%s\n", paths[i]);
+    free(paths[i]);
   }
 
+  replaceAll(*args.target, *args.replace, paths);
+
   // Clean up allocated memory
-  free(fullPaths);
+  free(paths);
   free(rules);
 
   return EXIT_SUCCESS;

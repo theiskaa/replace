@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Parse command-line arguments and store them in a struct Args.
 struct Args parseArgs(int argc, char *argv[]) {
   struct Args args;
   args.target = NULL;

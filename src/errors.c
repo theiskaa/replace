@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Logs appropriate help/error message and returns main execution value.
 void checkArgs(int argc) {
   if (argc < 2) {
     fprintf(stderr, "Usage: rp {X} {Y} ... {Z}\n");
