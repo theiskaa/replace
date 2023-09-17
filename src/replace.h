@@ -2,6 +2,20 @@
 #define REPLACE_H
 
 /**
+ * @brief Replaces all occurrences of character 'x' with character 'y' in a given string.
+ *
+ * This function replaces all occurrences of character 'x' with character 'y'
+ * in the provided string 'zContent'. It dynamically allocates memory for the
+ * resulting string, so the caller is responsible for freeing the returned value.
+ *
+ * @param x The character to be replaced.
+ * @param y The character to replace 'x' with.
+ * @param zContent The input string in which replacements will be made.
+ * @return A dynamically allocated string with replacements.
+ */
+char *replaceXY(const char *x, const char *y, const char *zContent);
+
+/**
  * @brief Replaces a character 'x' with character 'y' in a path string.
  *
  * This function replaces all occurrences of character 'x' with character 'y'
@@ -12,7 +26,7 @@
  * @param path The path string in which replacements will be made.
  * @return An integer representing the number of replacements made.
  */
-int replace(char x, char y, char *path);
+int replace(const char *x, const char *y, const char *path);
 
 /**
  * @brief Iterates through the array of paths and executes character
@@ -26,6 +40,6 @@ int replace(char x, char y, char *path);
  * @param paths An array of strings representing paths.
  * @return An array of strings with replacements.
  */
-char **replaceAll(char x, char y, char **paths);
+char **replaceAll(const char *x, const char *y, char **paths);
 
 #endif

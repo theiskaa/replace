@@ -173,7 +173,6 @@ char *readFileContent(const char *path) {
 
   fseek(file, 0, SEEK_END);
   long size = ftell(file);
-  rewind(file);
 
   char *res = (char *)malloc(size + 1);
   if (res == NULL) {
@@ -182,6 +181,7 @@ char *readFileContent(const char *path) {
     return NULL;
   }
 
+  rewind(file);
   if (fread(res, 1, size, file) != size) {
     printf("Cannot read: %s\n", path);
     fclose(file);

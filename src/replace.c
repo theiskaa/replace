@@ -1,13 +1,61 @@
+#include "files.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int replace(char x, char y, char *path) {
-  // TODO: add replace functionality
+// Replaces x with y in zContent string.
+char *replaceXY(const char *x, const char *y, const char *zContent) {
+  size_t xLen = strlen(x);
+  size_t zLen = strlen(zContent);
+
+  char *buffer = malloc((zLen + 1) * sizeof(char));
+  if (buffer == NULL) {
+    printf("Cannot allocate memory to replace x with y\n");
+    return NULL;
+  }
+
+  memset(buffer, 0, zLen + 1);
+
+  size_t pos = 0;
+  while (pos < zLen) {
+    char *match = strstr(zContent + pos, x);
+    if (match == NULL) {
+      strcat(buffer, zContent + pos);
+      break;
+    }
+
+    strncat(buffer, zContent + pos, match - (zContent + pos));
+    strcat(buffer, y);
+    pos = match - zContent + xLen;
+  }
+
+  return buffer;
+}
+
+// Replaces x with y in FILE of path.
+// If something wents wrong, error will be logged in console
+// appropriate error number will be returned.
+int replace(const char *x, const char *y, const char *path) {
+  char *zContent = readFileContent(path);
+  if (zContent == NULL) {
+    return 1;
+  }
+
+  char *modifiedContent = replacexy(x, y, zContent);
+  if (modifiedContent == NULL) {
+    free(zContent);
+    return 1;
+  }
+
+  // TODO: Paste modifiedContent into FILE in path.
+
+  free(zContent);
   return 0;
 }
 
-char **replaceAll(char x, char y, char **paths) {
+// Loops through the paths and executes the [replace] method for each paths
+// element.
+char **replaceAll(const char *x, const char *y, char **paths) {
   char **replaced = (char **)malloc(sizeof(char *));
   if (!replaced) {
     // TODO: implement errors.
