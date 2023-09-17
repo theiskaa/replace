@@ -41,7 +41,7 @@ int replace(const char *x, const char *y, const char *path) {
     return 1;
   }
 
-  char *modifiedContent = replacexy(x, y, zContent);
+  char *modifiedContent = replaceXY(x, y, zContent);
   if (modifiedContent == NULL) {
     free(zContent);
     return 1;
