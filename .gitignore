@@ -54,5 +54,3 @@ dkms.conf
 # Custom named replace
 rp
 replace
-
-/rptest

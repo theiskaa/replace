@@ -10,6 +10,7 @@
 int main(int argc, char *argv[]) {
   checkArgs(argc);
 
+  // TODO: move this segment to a custom file: debug.c
   struct Args args = parseArgs(argc, argv);
 
   printf("---------------------------\n");
@@ -62,9 +63,9 @@ int main(int argc, char *argv[]) {
   printf(">>> Replacing in Paths <<<\n");
   printf("--------------------------\n");
 
-  char **replaced = replaceAll(*args.target, *args.replace, paths);
+  char **replaced = replaceAll(args.target, args.replace, paths);
   for (int i = 0; replaced[i] != NULL; i++) {
-    printf("Replaced: %s\n", replaced[i]);
+    printf("Replaced: '%s' with '%s' in %s\n", args.target, args.replace, replaced[i]);
   }
 
   free(replaced);

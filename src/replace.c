@@ -47,9 +47,20 @@ int replace(const char *x, const char *y, const char *path) {
     return 1;
   }
 
-  // TODO: Paste modifiedContent into FILE in path.
+  FILE *file = fopen(path, "w");
+  if (file == NULL) {
+    free(zContent);
+    free(modifiedContent);
+    return 1;
+  }
 
+  size_t len = strlen(modifiedContent);
+  fwrite(modifiedContent, sizeof(char), len, file);
+
+  fclose(file);
   free(zContent);
+  free(modifiedContent);
+
   return 0;
 }
 
