@@ -1,4 +1,5 @@
 #include "files.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,6 +45,12 @@ int replace(const char *x, const char *y, const char *path) {
   char *modifiedContent = replaceXY(x, y, zContent);
   if (modifiedContent == NULL) {
     free(zContent);
+    return 1;
+  }
+
+  if (strcmp(zContent, modifiedContent) == 0) {
+    free(zContent);
+    free(modifiedContent);
     return 1;
   }
 
