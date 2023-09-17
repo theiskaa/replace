@@ -66,4 +66,14 @@ void collectFiles(const char *bp, const char *pr, char ***result, int *count);
  */
 char **generateFullPaths(struct FilePathRule *rules, int rulesCount);
 
+/**
+ * @brief Read the content of a file specified by its path.
+ *
+ * This function reads and returns the content of a file located at the given path.
+ *
+ * @param path The path to the file to be read.
+ * @return A string containing the content of the file, or NULL if an error occurs.
+ */
+char *readFileContent(const char *path);
+
 #endif

@@ -160,3 +160,36 @@ char **generateFullPaths(struct FilePathRule *rules, int rulesCount) {
   result[totalCount] = NULL;
   return result;
 }
+
+// Reads the file content to string from path.
+// If something wents wrong, result will be NULL and appropriate error message
+// will be displayed in console.
+char *readFileContent(const char *path) {
+  FILE *file = fopen(path, "r");
+  if (file == NULL) {
+    printf("Cannot open: %s\n", path);
+    return NULL;
+  }
+
+  fseek(file, 0, SEEK_END);
+  long size = ftell(file);
+  rewind(file);
+
+  char *res = (char *)malloc(size + 1);
+  if (res == NULL) {
+    printf("Cannot allocate memory to read: %s\n", path);
+    fclose(file);
+    return NULL;
+  }
+
+  if (fread(res, 1, size, file) != size) {
+    printf("Cannot read: %s\n", path);
+    fclose(file);
+    free(res);
+    return NULL;
+  }
+
+  res[size] = '\0';
+  fclose(file);
+  return res;
+}
