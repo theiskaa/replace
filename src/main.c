@@ -9,9 +9,10 @@ int main(int argc, char *argv[]) {
 
   // Note: Enable for dev mode.
   // TODO: include the modes in argv.
-  if (true) {
+  if (false) {
     return debugRun(argc, argv);
   }
+
   struct Args args = parseArgs(argc, argv);
   struct FilePathRule *rules = generateFilePathRules(args.pathsLen, args.paths);
   int len = args.pathsLen;
