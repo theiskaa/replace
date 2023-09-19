@@ -12,4 +12,13 @@
  */
 void checkArgs(int argc);
 
+/**
+ * @brief Print the content of the help.txt file from the assets directory.
+ *
+ * This function opens and reads the "help.txt" file located in the "assets"
+ * directory and prints its content to the console. If the file cannot be opened
+ * or read, an error message is displayed, and the program exits.
+ */
+void printHelp();
+
 #endif

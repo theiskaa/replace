@@ -1,0 +1,22 @@
+Usage: rp {x} {y} ... {z}
+
+The 'rp' command is a versatile tool for efficiently replacing content within specified files.
+
+Arguments:
+  X(SOURCE)        Specify the source content to be replaced
+  Y(TARGET)        Specify the target content to replace the source
+  Z(FILES)         Specify the target files or folders where replacement will be applied
+
+Examples:
+  rp "color" "colour" "folder_name/*.md"
+    Replace all occurrences of "color" with "colour" in Markdown files within 'folder_name'.
+
+  rp "old_text" "new_text" "file.txt"
+    Replace "old_text" with "new_text" in 'file.txt'.
+
+  rp "typo" "correction" "*.txt"
+    Replace "typo" with "correction" in all text files in the current directory.
+
+Notes:
+- You can use shell wildcards (*, ?) for file/folder selection.
+- If no 'FILES' argument is provided, the operation will be applied to all matching values under the current folder.
