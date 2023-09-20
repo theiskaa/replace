@@ -13,11 +13,17 @@
 void checkArgs(int argc);
 
 /**
- * @brief Print the content of the help.txt file from the assets directory.
+ * @brief Print the help information for the 'rp' command.
  *
- * This function opens and reads the "help.txt" file located in the "assets"
- * directory and prints its content to the console. If the file cannot be opened
- * or read, an error message is displayed, and the program exits.
+ * This function prints the usage information and examples for the 'rp' command,
+ * which is a versatile tool for efficiently replacing content within specified
+ * files. The help text provides details on how to use the command, its
+ * arguments, and usage examples. It also includes notes on using shell
+ * wildcards and the behavior when no 'FILES' argument is provided.
+ *
+ * The help information is displayed to the console when the 'rp' command is
+ * invoked with the 'help' option or when users need assistance in understanding
+ * how to use the command.
  */
 void printHelp();
 
