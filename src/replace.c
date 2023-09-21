@@ -70,33 +70,3 @@ int replace(const char *x, const char *y, const char *path) {
 
   return 0;
 }
-
-// Loops through the paths and executes the [replace] method for each paths
-// element.
-char **replaceAll(const char *x, const char *y, char **paths) {
-  char **replaced = (char **)malloc(sizeof(char *));
-  if (!replaced) {
-    // TODO: implement errors.
-    perror("Memory allocation error");
-    return NULL;
-  }
-
-  int pathsLen = 0;
-  for (int i = 0; paths[i] != NULL; i++) {
-    int hasReplaced = replace(x, y, paths[i]);
-    if (hasReplaced != 0) {
-      continue;
-    }
-
-    replaced[pathsLen++] = strdup(paths[i]);
-    replaced = (char **)realloc(replaced, sizeof(char *) * (pathsLen + 1));
-    if (!replaced) {
-      // TODO: implement errors.
-      perror("Memory allocation error");
-      return NULL;
-    }
-  }
-
-  replaced[pathsLen + 1] = NULL;
-  return replaced;
-}

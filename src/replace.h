@@ -28,18 +28,4 @@ char *replaceXY(const char *x, const char *y, const char *zContent);
  */
 int replace(const char *x, const char *y, const char *path);
 
-/**
- * @brief Iterates through the array of paths and executes character
- * replacement.
- *
- * This function iterates through an array of paths and replaces all occurrences
- * of character 'x' with character 'y' in each path string.
- *
- * @param x The character to be replaced.
- * @param y The character to replace 'x' with.
- * @param paths An array of strings representing paths.
- * @return An array of strings with replacements.
- */
-char **replaceAll(const char *x, const char *y, char **paths);
-
 #endif

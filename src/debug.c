@@ -47,26 +47,16 @@ int debugRun(int argc, char *argv[]) {
     }
   }
 
-  printf("-----------------------------\n");
-  printf(">>> Generating Full Paths <<<\n");
-  printf("-----------------------------\n");
-
-  char **paths = generateFullPaths(rules, len);
-  for (int i = 0; paths[i] != NULL; i++) {
-    printf("%s\n", paths[i]);
-  }
-
   printf("--------------------------\n");
   printf(">>> Replacing in Paths <<<\n");
   printf("--------------------------\n");
 
-  char **replaced = replaceAll(args.target, args.replace, paths);
+  char **replaced = forEachRule(rules, len, args.target, args.replace, replace);
   for (int i = 0; replaced[i] != NULL; i++) {
     printf("Replaced: '%s' with '%s' in %s\n", args.target, args.replace, replaced[i]);
   }
 
   free(replaced);
-  free(paths);
   free(rules);
 
   return EXIT_SUCCESS;

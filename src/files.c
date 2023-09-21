@@ -77,7 +77,8 @@ struct FilePathRule *generateFilePathRules(int pathsLen, char **paths) {
 
 // Recursively collects files and directories under the specified base path
 // (bp), based on the given prefix (pr) and stores them in the result array.
-void collectFiles(const char *bp, const char *pr, char ***result, int *count) {
+void forEachFile(const char *bp, const char *pr, char *x, char *y, int *count,
+                 char ***result, rp replace) {
   DIR *dir;
   struct dirent *entry;
 
@@ -101,11 +102,16 @@ void collectFiles(const char *bp, const char *pr, char ***result, int *count) {
     sprintf(path, "%s/%s", bp, entry->d_name);
 
     if (entry->d_type == DT_DIR) {
-      collectFiles(path, pr, result, count);
+      forEachFile(path, pr, x, y, count, result, replace);
       continue;
     }
 
     if (pr == NULL || (pr && strstr(entry->d_name, pr) != NULL)) {
+      int hasReplaced = replace(x, y, path);
+      if (hasReplaced != 0) {
+        continue;
+      }
+
       (*result)[(*count)++] = path;
       *result = (char **)realloc(*result, sizeof(char *) * (*count + 1));
       if (!(*result)) {
@@ -119,7 +125,8 @@ void collectFiles(const char *bp, const char *pr, char ***result, int *count) {
 }
 
 // Generates full paths based on an array of FilePathRule structures.
-char **generateFullPaths(struct FilePathRule *rules, int rulesCount) {
+char **forEachRule(struct FilePathRule *rules, int rulesCount, char *x, char *y,
+                   rp replace) {
   char **result = (char **)malloc(sizeof(char *));
   if (!result) {
     perror("Memory allocation error");
@@ -145,15 +152,21 @@ char **generateFullPaths(struct FilePathRule *rules, int rulesCount) {
 
     struct stat path_stat;
     if (stat(rule.path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode)) {
-      collectFiles(rule.path, rule.prefix, &result, &totalCount);
-    } else {
-      result[totalCount++] = strdup(rule.path);
-      result = (char **)realloc(result, sizeof(char *) * (totalCount + 1));
-      if (!result) {
-        // TODO: implement errors.
-        perror("Memory allocation error");
-        exit(EXIT_FAILURE);
-      }
+      forEachFile(rule.path, rule.prefix, x, y, &totalCount, &result, replace);
+      continue;
+    }
+
+    int hasReplaced = replace(x, y, rule.path);
+    if (hasReplaced != 0) {
+      continue;
+    }
+
+    result[totalCount++] = strdup(rule.path);
+    result = (char **)realloc(result, sizeof(char *) * (totalCount + 1));
+    if (!result) {
+      // TODO: implement errors.
+      perror("Memory allocation error");
+      exit(EXIT_FAILURE);
     }
   }
 
