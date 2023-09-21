@@ -10,7 +10,7 @@
  * @param argc The number of command-line arguments.
  * @throws An error if the argument count is not as expected.
  */
-void checkArgs(int argc);
+void checkArgs(int argc, char *argv[]);
 
 /**
  * @brief Print the help information for the 'rp' command.
@@ -21,9 +21,7 @@ void checkArgs(int argc);
  * arguments, and usage examples. It also includes notes on using shell
  * wildcards and the behavior when no 'FILES' argument is provided.
  *
- * The help information is displayed to the console when the 'rp' command is
- * invoked with the 'help' option or when users need assistance in understanding
- * how to use the command.
+ * The help information is displayed to the console when the 'rp' command is entered.
  */
 void printHelp();
 

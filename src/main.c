@@ -5,7 +5,7 @@
 #include <strings.h>
 
 int main(int argc, char *argv[]) {
-  checkArgs(argc);
+  checkArgs(argc, argv);
 
   // Note: Enable for dev mode.
   // TODO: include the modes in argv.
