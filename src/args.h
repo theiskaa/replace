@@ -8,10 +8,13 @@
  * input arguments of a program.
  */
 struct Args {
-  char *target;     /// The character to be replaced (X).
-  char *replace;    /// The character to replace 'target' with (Y).
-  char **paths;     /// An array of strings representing paths (Z).
-  int pathsLen;     /// The number of paths in the 'paths' array.
+  char *target;          /// The character to be replaced (X).
+  char *replace;         /// The character to replace 'target' with (Y).
+  char **paths;          /// An array of strings representing paths (Z).
+  int pathsLen;          /// The number of paths in the 'paths' array.
+  int exactMatchEnabled; /// This int flag determines whether the replacement
+                         /// algorithm requires an exact, space-free match for
+                         /// segments to be replaced.
 };
 
 /**

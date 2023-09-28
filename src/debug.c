@@ -13,6 +13,7 @@ int debugRun(int argc, char *argv[]) {
   printf("---------------------------\n");
   printf(">>> Parsing Args <<<\n");
   printf("---------------------------\n");
+  printf("Exact match enabled: %d\n", args.exactMatchEnabled);
   printf("X: %s\n", args.target);
   printf("Y: %s\n", args.replace);
 
