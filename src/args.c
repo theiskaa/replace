@@ -9,7 +9,7 @@ struct Args parseArgs(int argc, char *argv[]) {
   args.replace = NULL;
   args.paths = NULL;
   args.pathsLen = 0;
-  args.exactMatchEnabled = 1;
+  args.wordMatch = 1;
 
   if (argc < 3) {
     return args;
@@ -17,7 +17,7 @@ struct Args parseArgs(int argc, char *argv[]) {
 
   int idx = 1;
   if (strcmp("-w", argv[idx]) == 0 || strcmp("--word", argv[idx]) == 0) {
-    args.exactMatchEnabled = 0;
+    args.wordMatch = 0;
     idx++;
   }
 
