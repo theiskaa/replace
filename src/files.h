@@ -57,13 +57,15 @@ struct FilePathRule *generateFilePathRules(int pathsLen, char **path);
  * (bp) and stores them in the result array.
  *
  * @param bp The base path under which files and directories will be collected.
+ * @param pr The file prefix pattern (if applicable) to filter files under the
+ * base path.
  * @param args A structure containing program arguments.
  * @param count Pointer to an integer representing the number of collected
  * paths.
  * @param result An array to store the collected file and directory paths.
  * @param replace A function pointer for a custom replacement method.
  */
-void forEachFile(const char *bp, struct Args args, int *count, char ***result,
+void forEachFile(const char *bp, const char *pr, struct Args args, int *count, char ***result,
                  rp replace);
 
 /**
