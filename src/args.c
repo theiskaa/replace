@@ -22,22 +22,25 @@ struct Args parseArgs(int argc, char *argv[]) {
   }
 
   args.target = argv[idx];
-  args.replace = argv[idx + 1];
+  args.replace = argv[idx++];
 
-  if (argc > 3) {
-    args.paths = (char **)malloc((argc - 3) * sizeof(char *));
+  idx++;
+  int zexpect = idx;
+  if (argc > idx) {
+    args.paths = (char **)malloc((argc - idx) * sizeof(char *));
     if (args.paths == NULL) {
       fprintf(stderr, "Memory allocation failed for paths.\n");
       exit(1);
     }
 
-    for (int i = 3; i < argc; i++) {
-      args.paths[i - 3] = (char *)malloc(strlen(argv[i]) + 1);
-      if (args.paths[i - 3] == NULL) {
-        fprintf(stderr, "Memory allocation failed for path %d.\n", i);
+    for (; idx < argc; idx++) {
+      int pathidx = idx - zexpect;
+      args.paths[pathidx] = (char *)malloc(strlen(argv[idx]) + 1);
+      if (args.paths[pathidx] == NULL) {
+        fprintf(stderr, "Memory allocation failed for path %d.\n", idx);
         exit(1);
       }
-      strcpy(args.paths[i - 3], argv[i]);
+      strcpy(args.paths[pathidx], argv[idx]);
       args.pathsLen++;
     }
   }
