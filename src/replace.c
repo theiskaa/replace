@@ -1,18 +1,18 @@
 #include "args.h"
 #include "files.h"
+#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// Replaces args.target(x) with args.replace(y) in zContent string.
+// Replaces args.target with args.replace in zContent.
 char *replaceXY(struct Args args, const char *zContent) {
   size_t xLen = strlen(args.target);
   size_t zLen = strlen(zContent);
 
   char *buffer = malloc((zLen + 1) * sizeof(char));
 
-  printf("--->>> X:%s Y:%s WORDONLY:%d\n", args.target, args.replace, args.wordMatch);
   if (buffer == NULL) {
     printf("Cannot allocate memory to replace x with y\n");
     return NULL;
@@ -23,14 +23,27 @@ char *replaceXY(struct Args args, const char *zContent) {
   size_t pos = 0;
   while (pos < zLen) {
     char *match = strstr(zContent + pos, args.target);
+
     if (match == NULL) {
       strcat(buffer, zContent + pos);
       break;
     }
 
-    strncat(buffer, zContent + pos, match - (zContent + pos));
-    strcat(buffer, args.replace);
-    pos = match - zContent + xLen;
+    if (args.wordMatch == 1) {
+      strncat(buffer, zContent + pos, match - (zContent + pos));
+      strcat(buffer, args.replace);
+      pos = match - zContent + xLen;
+      continue;
+    }
+
+    if ((match == zContent || isspace(*(match - 1))) && (match[xLen] == '\0' || isspace(match[xLen]))) {
+      strncat(buffer, zContent + pos, match - (zContent + pos));
+      strcat(buffer, args.replace);
+      pos = match - zContent + xLen;
+    } else {
+      strncat(buffer, zContent + pos, match - (zContent + pos) + 1);
+      pos = match - zContent + 1;
+    }
   }
 
   return buffer;
