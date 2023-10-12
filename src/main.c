@@ -5,11 +5,10 @@
 #include <strings.h>
 
 int main(int argc, char *argv[]) {
-  checkArgs(argc);
+  checkArgs(argc, argv);
 
   // Note: Enable for dev mode.
-  // TODO: include the modes in argv.
-  if (false) {
+  if (true) {
     return debugRun(argc, argv);
   }
 
@@ -19,14 +18,13 @@ int main(int argc, char *argv[]) {
   if (len == 0) {
     len = 1;
   }
-  char **paths = generateFullPaths(rules, len);
-  char **replaced = replaceAll(args.target, args.replace, paths);
+
+  char **replaced = forEachRule(rules, len, args, replace);
   for (int i = 0; replaced[i] != NULL; i++) {
     printf("Replaced: '%s' with '%s' in %s\n", args.target, args.replace, replaced[i]);
   }
 
   free(replaced);
-  free(paths);
   free(rules);
 
   return EXIT_SUCCESS;

@@ -29,11 +29,11 @@ Executing the above command will systematically replace all occurrences of "colo
 
 ## Syntax
 ```
-rp {X} {Y} ... {Z}
+rp {OPTIONS} {X} {Y} ... {Z}
 ```
 
-The syntax of the replace involves three main components: `{X}`, `{Y}`, and one or more instances of `{Z}`. The components are explained below:
+The syntax of the replace involves three main components: `{OPTIONS}`, `{X}`, `{Y}`, and one or more instances of `{Z}`. The components are explained below:
 
-- `{X}` and `{Y}`: These are both strings representing the source and target for replacement, respectively. By specifying {X} as the content to be replaced and {Y} as the content to replace it with, you control what changes are made within the files.
-
+- `{OPTIONS}`: You can use the `-w` or `--word` option to enable word-based replacements, ensuring an exact, space-free match for segments to be replaced.
+- `{X}` and `{Y}`: These are both strings representing the source and target for replacement, respectively. By specifying `{X}` as the content to be replaced and `{Y}` as the content to replace it with, you control what changes are made within the files.
 - `{Z}` elements: These denote the files in which the replacement operation will take place. Each `{Z}` can refer to a folder or file name, allowing you to define the scope of files to be included in the replacement operation. If `{Z}` is not provided at all, the "replace" operation will be applied to all matching values found under the current folder. This means that any occurrence of `{X}` within the files located in the current directory will be replaced with `{Y}`.
