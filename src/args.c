@@ -9,28 +9,39 @@ struct Args parseArgs(int argc, char *argv[]) {
   args.replace = NULL;
   args.paths = NULL;
   args.pathsLen = 0;
+  args.wordMatch = 1;
 
   if (argc < 3) {
     return args;
   }
 
-  args.target = argv[1];
-  args.replace = argv[2];
+  int idx = 1;
+  if (strcmp("-w", argv[idx]) == 0 || strcmp("--word", argv[idx]) == 0) {
+    args.wordMatch = 0;
+    idx++;
+  }
 
-  if (argc > 3) {
-    args.paths = (char **)malloc((argc - 3) * sizeof(char *));
+  args.target = argv[idx];
+  idx++;
+  args.replace = argv[idx];
+
+  idx++;
+  int zexpect = idx;
+  if (argc > idx) {
+    args.paths = (char **)malloc((argc - idx) * sizeof(char *));
     if (args.paths == NULL) {
       fprintf(stderr, "Memory allocation failed for paths.\n");
       exit(1);
     }
 
-    for (int i = 3; i < argc; i++) {
-      args.paths[i - 3] = (char *)malloc(strlen(argv[i]) + 1);
-      if (args.paths[i - 3] == NULL) {
-        fprintf(stderr, "Memory allocation failed for path %d.\n", i);
+    for (; idx < argc; idx++) {
+      int pathidx = idx - zexpect;
+      args.paths[pathidx] = (char *)malloc(strlen(argv[idx]) + 1);
+      if (args.paths[pathidx] == NULL) {
+        fprintf(stderr, "Memory allocation failed for path %d.\n", idx);
         exit(1);
       }
-      strcpy(args.paths[i - 3], argv[i]);
+      strcpy(args.paths[pathidx], argv[idx]);
       args.pathsLen++;
     }
   }

@@ -77,7 +77,7 @@ struct FilePathRule *generateFilePathRules(int pathsLen, char **paths) {
 
 // Recursively collects files and directories under the specified base path
 // (bp), based on the given prefix (pr) and stores them in the result array.
-void forEachFile(const char *bp, const char *pr, char *x, char *y, int *count,
+void forEachFile(const char *bp, const char *pr, struct Args args, int *count,
                  char ***result, rp replace) {
   DIR *dir;
   struct dirent *entry;
@@ -102,12 +102,12 @@ void forEachFile(const char *bp, const char *pr, char *x, char *y, int *count,
     sprintf(path, "%s/%s", bp, entry->d_name);
 
     if (entry->d_type == DT_DIR) {
-      forEachFile(path, pr, x, y, count, result, replace);
+      forEachFile(path, pr, args, count, result, replace);
       continue;
     }
 
     if (pr == NULL || (pr && strstr(entry->d_name, pr) != NULL)) {
-      int hasReplaced = replace(x, y, path);
+      int hasReplaced = replace(args, path);
       if (hasReplaced != 0) {
         continue;
       }
@@ -125,7 +125,7 @@ void forEachFile(const char *bp, const char *pr, char *x, char *y, int *count,
 }
 
 // Generates full paths based on an array of FilePathRule structures.
-char **forEachRule(struct FilePathRule *rules, int rulesCount, char *x, char *y,
+char **forEachRule(struct FilePathRule *rules, int rulesCount, struct Args args,
                    rp replace) {
   char **result = (char **)malloc(sizeof(char *));
   if (!result) {
@@ -152,11 +152,11 @@ char **forEachRule(struct FilePathRule *rules, int rulesCount, char *x, char *y,
 
     struct stat path_stat;
     if (stat(rule.path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode)) {
-      forEachFile(rule.path, rule.prefix, x, y, &totalCount, &result, replace);
+      forEachFile(rule.path, rule.prefix, args, &totalCount, &result, replace);
       continue;
     }
 
-    int hasReplaced = replace(x, y, rule.path);
+    int hasReplaced = replace(args, rule.path);
     if (hasReplaced != 0) {
       continue;
     }

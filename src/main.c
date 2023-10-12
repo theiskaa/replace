@@ -8,8 +8,7 @@ int main(int argc, char *argv[]) {
   checkArgs(argc, argv);
 
   // Note: Enable for dev mode.
-  // TODO: include the modes in argv.
-  if (false) {
+  if (true) {
     return debugRun(argc, argv);
   }
 
@@ -20,7 +19,7 @@ int main(int argc, char *argv[]) {
     len = 1;
   }
 
-  char **replaced = forEachRule(rules, len, args.target, args.replace, replace);
+  char **replaced = forEachRule(rules, len, args, replace);
   for (int i = 0; replaced[i] != NULL; i++) {
     printf("Replaced: '%s' with '%s' in %s\n", args.target, args.replace, replaced[i]);
   }
