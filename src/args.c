@@ -22,7 +22,8 @@ struct Args parseArgs(int argc, char *argv[]) {
   }
 
   args.target = argv[idx];
-  args.replace = argv[idx++];
+  idx++;
+  args.replace = argv[idx];
 
   idx++;
   int zexpect = idx;
