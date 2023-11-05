@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
   checkArgs(argc, argv);
 
   // Note: Enable for dev mode.
-  if (true) {
+  if (false) {
     return debugRun(argc, argv);
   }
 
